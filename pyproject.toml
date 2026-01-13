@@ -1,0 +1,27 @@
+[project]
+dependencies = [
+  "fastapi",
+  "uvicorn",
+  "httpx",
+  "requests",
+  "packaging",
+  "pgvector",
+  "loguru",
+  "sqlmodel",
+  "pydantic-settings",
+  "openai>=1.102.0",
+  "supabase>=2.18.1",
+  "aiogram>=3.22.0",
+  "tzdata>=2025.2",
+  "asyncpg>=0.30.0",
+  "json-repair>=0.51.0",
+  "greenlet>=3.2.4",
+  "psycopg2-binary>=2.9.11",
+  "pymupdf>=1.26.5",
+  "langchain-text-splitters>=1.0.0",
+  "langgraph>=1.0.5",
+  "langchain>=1.2.0",
+]
+name = "codeskin-mvp"
+requires-python = ">=3.12"
+version = "0.1.0"
