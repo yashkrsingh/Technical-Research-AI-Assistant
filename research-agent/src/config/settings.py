@@ -31,8 +31,10 @@ class ApiServerConfig(BaseModel):
 
 
 class LLMConfig(BaseModel):
-    openai_api_key: Optional[str]
-
+    llm_api_key: str
+    llm_provider: str
+    llm_model: str
+    llm_embedding_model: str
 
 class Configuration(BaseSettings):
     model_config = SettingsConfigDict(
@@ -47,11 +49,14 @@ class Configuration(BaseSettings):
 
     # API
     app_host: str = Field(default="0.0.0.0", alias="APP_HOST")
-    app_port: int = Field(default=8000, alias="APP_PORT")
+    app_port: int = Field(default=5000, alias="APP_PORT")
     log_level: str = Field(default="INFO", alias="LOGURU_LEVEL")
 
     # LLM
-    openai_api_key: Optional[str] = Field(default=None, alias="OPENAI_API_KEY")
+    llm_api_key: str = Field(default=None, alias="LLM_API_KEY")
+    llm_provider: str = Field(default=None, alias="LLM_PROVIDER")
+    llm_model: str = Field(default=None, alias="LLM_MODEL")
+    llm_embedding_model: str = Field(default=None, alias="LLM_EMBEDDING_MODEL")
 
     # Supabase
     supabase_connection_string: str = Field(default="", alias="SUPABASE_CONNECTION_STRING")
@@ -72,7 +77,10 @@ class Configuration(BaseSettings):
     @property
     def llm(self) -> LLMConfig:
         return LLMConfig(
-            openai_api_key=self.openai_api_key,
+            llm_api_key=self.llm_api_key,
+            llm_provider=self.llm_provider,
+            llm_model=self.llm_model,
+            llm_embedding_model=self.llm_embedding_model,
         )
 
     @property

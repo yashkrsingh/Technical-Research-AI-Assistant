@@ -1,3 +1,3 @@
 from fastapi import APIRouter
 
-db_router = APIRouter()
+agent_api_router = APIRouter()

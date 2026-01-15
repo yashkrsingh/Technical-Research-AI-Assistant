@@ -3,11 +3,12 @@ import logging
 import os
 import sys
 
+from uvicorn import Server, Config
+
 import api
 from loguru import logger
 from starlette.requests import Request
 from starlette.responses import JSONResponse
-from uvicorn import Config, Server
 
 from config.settings import configuration
 from exceptions.app_exceptions import AppErrorCodes
