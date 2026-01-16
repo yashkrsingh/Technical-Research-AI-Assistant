@@ -42,7 +42,7 @@ def _create_error_state(user_name: Optional[str], query: str, error_message: str
     return initial_state
 
 
-def conversation_state_to_api_response(state: GraphState) -> Dict[str, Any]:
+def graph_state_to_api_response(state: GraphState) -> Dict[str, Any]:
     metadata = state.get("state_metadata", {})
 
     return {

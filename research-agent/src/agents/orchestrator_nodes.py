@@ -1,10 +1,11 @@
+from domain.interfaces.tools_interface import ToolsInterface
 from domain.states.orchestrator_state import GraphState
 
 
 class OrchestratorNodes:
 
-    def __init__(self):
-        pass
+    def __init__(self, tools_service: ToolsInterface):
+        self.tools_service = tools_service
 
     async def task_decomposer(self, state: GraphState):
         """ Converts vague goals into a set of defined technical asks """
