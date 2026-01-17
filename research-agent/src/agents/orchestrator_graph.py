@@ -2,7 +2,7 @@ from langchain_core.runnables.graph import Graph
 from langgraph.graph import StateGraph
 
 from agents.orchestrator_nodes import OrchestratorNodes
-from domain.states.orchestrator_state import GraphState
+from domain.states.orchestrator_state import ResearchState
 
 
 class OrchestratorGraph:
@@ -14,7 +14,7 @@ class OrchestratorGraph:
 
     def _build_graph(self) -> StateGraph:
 
-        workflow = StateGraph(GraphState)
+        workflow = StateGraph(ResearchState)
 
         workflow.add_node(self.nodes.task_decomposer)
         workflow.add_node(self.nodes.research_planner)

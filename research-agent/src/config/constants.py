@@ -1,8 +1,6 @@
 class LLMConstants:
-    GPT_INSTANT_MODEL = "gpt-5.2-instant"
-    GPT_GENERAL_MODEL = "gpt-5.2"
-    GPT_PRO_MODEL = "gpt-5.2-pro"
-    OPENAI_BASE_URL = "https://api.openai.com/v1"
+    GPT_GENERAL_MODEL = "openai/gpt-oss-120b:free"
+    OPENAI_BASE_URL = "https://openrouter.ai/api/v1"
     OPENAI_DEFAULT_HEADERS = {"Content-Type": "application/json"}
     OPENAI_EMBEDDING_MODEL = "text-embedding-3-large"
 

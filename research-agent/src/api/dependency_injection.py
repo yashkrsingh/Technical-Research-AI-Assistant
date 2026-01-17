@@ -5,8 +5,10 @@ from fastapi import Depends
 
 from agents.orchestrator_graph import OrchestratorGraph
 from agents.orchestrator_nodes import OrchestratorNodes
+from domain.interfaces.llm_interaction_interface import LlmInteractionInterface
 from domain.interfaces.orchestrator_processing_interface import OrchestratorProcessingInterface
 from domain.interfaces.tools_interface import ToolsInterface
+from infrastructure.llm.bootstrap import LLMApplicationBootstrap
 from services.orchestrator_processing_service import OrchestratorProcessingService
 from services.tools_service import ToolsService
 
@@ -15,8 +17,13 @@ class Dependencies:
 
     @staticmethod
     @lru_cache()
-    def get_tools_service():
-        return ToolsService()
+    def llm_service() -> LlmInteractionInterface:
+        return LLMApplicationBootstrap.build_llm_interaction_service()
+
+    @staticmethod
+    @lru_cache()
+    def get_tools_service(llm_service: LlmInteractionInterface = Depends(llm_service)) -> ToolsService:
+        return ToolsService(llm_service)
 
     @staticmethod
     @lru_cache()

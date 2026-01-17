@@ -5,11 +5,11 @@ from loguru import logger
 
 from agents.orchestrator_graph import OrchestratorGraph
 from domain.interfaces.orchestrator_processing_interface import OrchestratorProcessingInterface
-from domain.states.orchestrator_state import GraphState
+from domain.states.orchestrator_state import ResearchState
 
 
 def _create_initial_state(user_name: Optional[str], query: str):
-    initial_state = GraphState(
+    initial_state = ResearchState(
         query=[HumanMessage(content=query)],
         response=None,
         tokens_used=None,
@@ -24,7 +24,7 @@ def _create_initial_state(user_name: Optional[str], query: str):
     return initial_state
 
 def _create_error_state(user_name: Optional[str], query: str, error_message: str):
-    initial_state = GraphState(
+    initial_state = ResearchState(
         query=[HumanMessage(content=query)],
         response=f"Sorry, I encountered an error: {error_message}",
         tokens_used=None,
@@ -42,7 +42,7 @@ def _create_error_state(user_name: Optional[str], query: str, error_message: str
     return initial_state
 
 
-def graph_state_to_api_response(state: GraphState) -> Dict[str, Any]:
+def graph_state_to_api_response(state: ResearchState) -> Dict[str, Any]:
     metadata = state.get("state_metadata", {})
 
     return {
@@ -68,7 +68,7 @@ class OrchestratorProcessingService(OrchestratorProcessingInterface):
         self.graph = self.orchestrator.graph.compile()
 
 
-    async def process_user_query(self, user_name: str, query: str) -> GraphState:
+    async def process_user_query(self, user_name: str, query: str) -> ResearchState:
         try:
             # Utilities.save_graph_as_jpg(self.graph, "../assets/orchestrator_graph.jpg")
 
@@ -85,11 +85,11 @@ class OrchestratorProcessingService(OrchestratorProcessingInterface):
     # Helper Functions
     # -------------------
 
-    async def _execute_graph(self, initial_state: GraphState) -> GraphState:
+    async def _execute_graph(self, initial_state: ResearchState) -> ResearchState:
         try:
             logger.info("Executing orchestrator graph")
 
-            final_state: GraphState = await self.graph.ainvoke(initial_state)
+            final_state: ResearchState = await self.graph.ainvoke(initial_state)
 
             if not final_state.get("response"):
                 final_state["response"] = ""
