@@ -1,4 +1,3 @@
-from langchain_core.runnables.graph import Graph
 from langgraph.graph import StateGraph
 
 from agents.orchestrator_nodes import OrchestratorNodes
@@ -16,10 +15,21 @@ class OrchestratorGraph:
 
         workflow = StateGraph(ResearchState)
 
-        workflow.add_node(self.nodes.task_decomposer)
-        workflow.add_node(self.nodes.research_planner)
-        workflow.add_node(self.nodes.research_executor)
-        workflow.add_node(self.nodes.approach_comparator)
-        workflow.add_node(self.nodes.solution_synthesizer)
+        workflow.add_node("decompose", self.nodes.task_decomposer)
+        workflow.add_node("planner", self.nodes.research_planner)
+        workflow.add_node("executor", self.nodes.research_executor)
+        workflow.add_node("comparator", self.nodes.approach_comparator)
+        workflow.add_node("synthesizer", self.nodes.solution_synthesizer)
+        workflow.add_node("generator", self.nodes.plan_generator)
+
+        workflow.set_entry_point("decompose")
+
+        workflow.add_edge("decompose", "planner")
+        workflow.add_edge("planner", "executor")
+        workflow.add_edge("executor", "comparator")
+        workflow.add_edge("comparator", "synthesizer")
+        workflow.add_edge("synthesizer", "generator")
+
+        return workflow
 
 

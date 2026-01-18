@@ -26,3 +26,7 @@ class OrchestratorNodes:
     async def solution_synthesizer(self, state: ResearchState):
         """ Picks the final approach that is most suitable for the query """
         pass
+
+    async def plan_generator(self, state: ResearchState):
+        """ Generates the final plan for the query """
+        pass
