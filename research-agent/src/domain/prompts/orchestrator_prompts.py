@@ -39,7 +39,7 @@ class OrchestratorPrompts:
         SUBTASKS
         ---
         
-        "$subtask_list"
+        "$sub_task_list"
         
         OUTPUT FORMAT:
         ---
@@ -122,7 +122,7 @@ class OrchestratorPrompts:
         technical implementation plan.
         
         Approach:
-        {state.recommended_approach}
+        $selected_approach
         
         Return JSON with:
         - architecture
